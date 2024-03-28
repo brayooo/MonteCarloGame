@@ -17,6 +17,10 @@ with open('uniformDistributionNumbers.json', 'r') as file:
     data = json.load(file)
     uniform_numbers = data['numbers']
 
+with open('resistenceNumbers.json', 'r') as file:
+    data = json.load(file)
+    resistence_numbers = data['numbers']
+
 
 class Numbers:
     """
@@ -36,6 +40,7 @@ class Numbers:
         self.pseudo_random_gender = self.pseudo_random_generator(gender_numbers)
         self.pseudo_random_numbers = self.pseudo_random_generator(multi_purpose_numbers)
         self.uniform_pseudo_random_numbers = self.pseudo_random_generator(uniform_numbers)
+        self.resistence_pseudo_random_numbers = self.pseudo_random_generator(resistence_numbers)
 
     def pseudo_random_generator(self, numbers):
         """
@@ -63,6 +68,19 @@ class Numbers:
             # Reiniciar el generador
             self.pseudo_random_shot = self.pseudo_random_generator(shot_numbers)
             return next(self.pseudo_random_shot)
+
+    def get_next_pseudo_random_resistence(self):
+        """
+        Devuelve el siguiente número pseudoaleatorio para decidir la resisencia.
+
+        Returns:
+            int: El siguiente número pseudoaleatorio para decidir la resistencia.
+        """
+        try:
+            return next(self.resistence_pseudo_random_numbers)
+        except StopIteration:
+            self.resistence_pseudo_random_numbers = self.pseudo_random_generator(resistence_numbers)
+            return next(self.resistence_pseudo_random_numbers)
 
     def get_next_pseudo_random_gender(self):
         """
@@ -148,3 +166,13 @@ class Numbers:
         """
         random.shuffle(uniform_numbers)
         return self.get_next_uniform_pseudo_random_number()
+
+    def decide_resistence(self):
+        """
+        Devuelve un número pseudoaleatorio para establecer la suerte del jugador.
+
+        Returns:
+            int: Un número pseudoaleatorio uniforme entre 1 y 3.
+        """
+        random.shuffle(uniform_numbers)
+        return self.get_next_pseudo_random_resistence()

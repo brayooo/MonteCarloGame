@@ -35,7 +35,7 @@ class Player:
         self.gender = numbers_instance.decide_gender()
         self.id = id
         self.team = ""
-        self.initial_resistance = random.randint(25, 45)
+        self.initial_resistance = numbers_instance.decide_resistence()
         self.resistance = self.initial_resistance
         self.experience = 10
         self.experience_per_round = 0
@@ -45,7 +45,7 @@ class Player:
         self.scores = []
         self.rounds_won = 0
         self.lucky_shots = 0
-        self.reduced_resistance_rounds = 2
+        self.reduced_resistance_rounds = 0
         self.consecutive_lucky_wins = 0
 
     def __str__(self):

@@ -1,5 +1,7 @@
 import random
 
+from model.Numbers import Numbers
+
 
 class Player:
     """
@@ -29,7 +31,8 @@ class Player:
         Parámetros:
             id (int): Identificador único del arquero.
         """
-        self.gender = random.choice([0, 1])
+        numbers_instance = Numbers()
+        self.gender = numbers_instance.decide_gender()
         self.id = id
         self.team = ""
         self.initial_resistance = random.randint(25, 45)

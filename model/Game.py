@@ -1,6 +1,6 @@
-import random
 import matplotlib.pyplot as plt
 
+from model.Numbers import Numbers
 from model.Player import Player
 from model.Team import Team
 from prettytable import PrettyTable
@@ -15,6 +15,7 @@ class Game:
     Clase para representar un juego de arquería entre dos equipos.
 
     Atributos:
+        numbers_instance (Numbers): Instancia de la clase Numbers para el manejo de las decisiones
         fig (matplotlib.figure.Figure): Figura para el gráfico de puntuaciones.
         lines (dict): Diccionario que mapea el ID de cada arquero a su línea en el gráfico.
         round_resistances (list): Lista de resistencias de los arqueros en la ronda actual.
@@ -24,6 +25,7 @@ class Game:
         team2 (Team): El segundo equipo de arqueros.
     """
     def __init__(self, game):
+        self.numbers_instance = Numbers()
         self.fig = None
         self.lines = {}
         plt.ion()  # Habilitar el modo interactivo
@@ -59,8 +61,6 @@ class Game:
             print("Numero de ronda: ", number_round)
             self.save_resistances()
             self.set_archer_luck()
-            print("T1", self.team1)
-            print("T2", self.team2)
             self.lucky_shot(self.team1)
             self.lucky_shot(self.team2)
             while not self.verify_resistence(self.team1) and not self.verify_resistence(self.team2):
@@ -114,7 +114,6 @@ class Game:
                 # Asegúra de que las puntuaciones se estén actualizando correctamente
                 if games_to_plot > 0:
                     line.set_data(range(1, games_to_plot + 1), archer.scores[:games_to_plot])
-                print(f"Archer {archer.id} scores in games 1 to {games_to_plot}: {archer.scores[:games_to_plot]}")
         # Ajustar los límites del eje y redibujar el gráfico
         self.ax.relim()
         self.ax.autoscale_view()
@@ -314,7 +313,7 @@ class Game:
                     archer.resistance = resistence - 1
                     archer.reduced_resistance_rounds -= 1
                 else:
-                    archer.resistance = resistence - random.randint(1, 2)
+                    archer.resistance = resistence - self.numbers_instance.get_random_number()
                 archer.experience_per_round = 0
 
     def take_shot(self, archer):
@@ -327,7 +326,7 @@ class Game:
         Retorna:
             int: La puntuación obtenida en el disparo.
         """
-        shot = random.random()
+        shot = self.numbers_instance.decide_shot()
         if archer.gender == 0:  # Mujeres
             if shot <= 0.30:
                 return 10  # Central
@@ -439,7 +438,7 @@ class Game:
         Asigna un valor de suerte a cada arquero y acumula su suerte acompañada.
         """
         for archer in self.team1.team + self.team2.team:
-            archer.luck = random.uniform(1, 3)
+            archer.luck = self.numbers_instance.get_random_uniform_number()
             archer.accompanied_luck += archer.luck
 
     def reset_original_resistance(self):

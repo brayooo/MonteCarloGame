@@ -2,7 +2,7 @@ from model.Game import Game
 
 
 def main():
-    Game(1000)
+    Game(20000)
 
 
 if __name__ == '__main__':

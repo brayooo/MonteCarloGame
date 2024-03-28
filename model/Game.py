@@ -7,9 +7,6 @@ from prettytable import PrettyTable
 from colorama import init, Fore, Style
 
 
-# TODO cambiar resistance por endurance
-# TODO verificar que funcione todo
-# TODO cambiar los randoms
 class Game:
     """
     Clase para representar un juego de arquería entre dos equipos.

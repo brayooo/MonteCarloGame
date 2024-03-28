@@ -148,7 +148,7 @@ class Game:
         table = PrettyTable()
         table.field_names = ["Winner", "Stats"]
         table.add_row(["Player winner", player_winner])
-        table.add_row(["Team winner", team_winner.global_score])
+        table.add_row(["Team winner", f"{team_winner.team_name} (Score: {team_winner.global_score})"])
 
         print(table)
 
@@ -456,9 +456,10 @@ class Game:
 
             if i < 5:  # Primeros 5 jugadores van al equipo 1
                 archer.team = "Team 1"
+                self.team1.team_name = "Team 1"
             else:  # Siguientes 5 jugadores van al equipo 2
                 archer.team = "Team 2"
-
+                self.team2.team_name = "Team 2"
             if archer.team == "Team 1":
                 self.team1.get_team.append(archer)
             else:

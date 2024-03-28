@@ -3,6 +3,7 @@ class Team:
     Clase para representar un equipo de arqueros en el juego de arquería.
 
     Atributos:
+        team (str): Nombre del equipo.
         team (list): Lista de objetos Player que representan los arqueros del equipo.
         global_score (int): Puntuación global acumulada del equipo en todos los juegos.
         score (int): Puntuación del equipo en el juego actual.
@@ -14,6 +15,7 @@ class Team:
         """
         Inicializa una instancia de la clase Team.
         """
+        self.team_name = ""
         self.team = []
         self.global_score = 0
         self.score = 0

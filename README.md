@@ -45,7 +45,7 @@ with python, go ahead.
     
 - Install requirements:
 
-      > pip -r install requirements.txt
+      > pip install -r requirements.txt
     
     ![bash4](assets/bash4.png)
     
